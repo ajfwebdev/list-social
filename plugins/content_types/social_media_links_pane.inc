@@ -69,6 +69,8 @@ function social_media_links_pane_build_list(array $list_data) {
   $output = '';
   $output .= '<div id="lisearch-social-media-list" class="social-media-links">';
   $output .= '<input class="search" placeholder="Search" />';
+
+  // The "list" class is required on the ul element.
   $output .= '<ul class="list">';
   foreach ($list_data as $category_data) {
     $output .= '<li class="lisearch-cat-li"><h3 class="lisearch-category">' . $category_data['category_name'] . '</h3></li>';
