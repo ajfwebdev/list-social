@@ -106,11 +106,23 @@ function lisearch_get_list_data() {
 
   $result = db_query($query, array(':bundle' => 'social_media_link'));
   $list_data = array();
+  $category_hold = '';
+  $child_array = array();
   foreach ($result as $record) {
     if (!empty($record->category_name)) {
-      $category = check_plain($record->category_name);
-      $list_data[$category]['link_text'] = check_plain($record->link_text);
-      $list_data[$category]['link_url'] = check_url($record->link_url);
+      $category_in = check_plain($record->category_name);
+      if ($category_in != $category_hold) {
+        if (!empty($child_array)) {
+          $list_data[] = $child_array;
+          unset($child_array);
+          $child_array = array();
+        }
+        $child_array['category_name'] = $category_in;
+        $category_hold = $category_in;
+      }
+      $link_text = check_plain($record->link_text);
+      $link_key = str_replace(' ', '_', strtolower($link_text));
+      $child_array[$link_key] = array('link_text' => $link_text, 'link_url' => check_url($record->link_url));
     }
   }
   return $list_data;
