@@ -70,6 +70,16 @@ function lisearch_social_media_pane_render($subtype, $conf, $args, $context) {
  */
 function theme_lisearch_build_social_media_list(array $variables) {
   $list_data = $variables['list_data'];
+  $output = '';
+  $output .= '<div id="lisearch-social-media-list" class="social-media-links">';
+  $output .= '<input class="search" placeholder="Search" />';
+  $output .= '<ul class="lisearch-list">';
+  foreach ($list_data as $category_data) {
+    $output .= '<li class="lisearch-category">' . $category_data['category_name'] . '</li>';
+  }
+  $output .= '</ul>';
+  $output .= '</div>';
+  return $output;
 }
 
 /**
