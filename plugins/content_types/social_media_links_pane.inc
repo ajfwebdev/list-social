@@ -28,12 +28,12 @@
 
 $plugin = array(
   'single' => TRUE,
-  'content_types' => array('lisearch_social_media_pane'),
+  'content_types' => array('social_media_links_pane'),
   'title' => t('Social Media Links Custom Pane'),
   'description' => t('A searchable directory of social media links.'),
-  'category' => t('Custom'),
-  'render callback' => 'lisearch_social_media_pane_render',
-  'admin info' => 'lisearch_social_media_pane_admin_info',
+  'category' => t('Custom blocks'),
+  'render callback' => 'social_media_links_pane_render',
+  'admin info' => 'social_media_links_pane_admin_info',
   'required context' => new ctools_context_required(t('Node'), 'node'),
   'defaults' => array(
     'text' => '',
@@ -45,12 +45,12 @@ $plugin = array(
 /**
  * Render callback function.
  */
-function lisearch_social_media_pane_render($subtype, $conf, $args, $context) {
+function social_media_links_pane_render($subtype, $conf, $args, $context) {
   // Get the data for the social media list directory.
-  $list_data = lisearch_get_list_data();
+  $list_data = social_media_links_pane_list_data();
   // Create a block to display the list.
   $block = new stdClass();
-  $block->content = theme('lisearch_build_social_media_list', array('list_data' => $list_data));
+  $block->content = social_media_links_pane_build_list($list_data);
 
   return $block;
 }
@@ -58,18 +58,14 @@ function lisearch_social_media_pane_render($subtype, $conf, $args, $context) {
 /**
  * Builds markup for rendering the list directory.
  *
- * @param array $variables
+ * @param array $list_data
  *   An associative array containing:
- *   - associative arrays for each data set needed to build the various
- *     sections of the list.
+ *   - data needed to build the various sections of the list.
  *
  * @return string
  *   The markup for the list.
- *
- * @ingroup themeable
  */
-function theme_lisearch_build_social_media_list(array $variables) {
-  $list_data = $variables['list_data'];
+function social_media_links_pane_build_list(array $list_data) {
   $output = '';
   $output .= '<div id="lisearch-social-media-list" class="social-media-links">';
   $output .= '<input class="search" placeholder="Search" />';
@@ -99,7 +95,7 @@ function theme_lisearch_build_social_media_list(array $variables) {
  * @return array
  *   - an associative arrays containing the list items.
  */
-function lisearch_get_list_data() {
+function social_media_links_pane_list_data() {
 
   $query = 'SELECT
     fpp.fpid AS fpp_id,
@@ -146,13 +142,14 @@ function lisearch_get_list_data() {
       $child_array[$link_key] = array('link_text' => $link_text, 'link_url' => check_url($record->link_url));
     }
   }
+
   return $list_data;
 }
 
 /**
  * Admin info callback for panel pane.
  */
-function lisearch_social_media_pane_admin_info($subtype, $conf, $context) {
+function social_media_links_pane_admin_info($subtype, $conf, $context) {
   // Set the title that shows on the admin Content page to the overridden title.
   $block = new stdClass();
   $block->title = t('Social Media Links');
