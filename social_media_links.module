@@ -6,6 +6,10 @@
 
 include_once 'social_media_links.features.inc';
 
+$module_path = drupal_get_path('module', 'social_media_links');
+drupal_add_js($module_path . '/js/list.js');
+drupal_add_js($module_path . '/js/social_media_links_pane.js');
+
 /**
  * Implements hook_ctools_plugin_directory().
  */

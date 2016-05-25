@@ -71,14 +71,14 @@ function social_media_links_pane_build_list(array $list_data) {
   $output .= '<input class="search" placeholder="Search" />';
   $output .= '<ul class="lisearch-list">';
   foreach ($list_data as $category_data) {
-    $output .= '<li class="lisearch-category"><h3>' . $category_data['category_name'] . '</h3></li>';
+    $output .= '<li class="lisearch-cat-li"><h3 class="lisearch-category">' . $category_data['category_name'] . '</h3></li>';
     foreach ($category_data as $key => $value) {
       if ($key !== 'category_name') {
         if (isset($value['link_url']) && isset($value['link_text'])) {
           $output .= '<li class="lisearch-link-li">';
-          $output .= '<a class="lisearch-link" href="' . $value['link_url'] . '" target="_blank">';
+          $output .= '<a class="lisearch-link" href="' . $value['link_url'] . '" target="_blank"><span class="lisearch-link-span">';
           $output .= $value['link_text'];
-          $output .= '</a>';
+          $output .= '</span></a>';
           $output .= '</li>';
         }
       }
