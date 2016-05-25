@@ -148,3 +148,13 @@ function lisearch_get_list_data() {
   }
   return $list_data;
 }
+
+/**
+ * Admin info callback for panel pane.
+ */
+function lisearch_social_media_pane_admin_info($subtype, $conf, $context) {
+  // Set the title that shows on the admin Content page to the overridden title.
+  $block = new stdClass();
+  $block->title = t('Social Media Links');
+  return $block;
+}
