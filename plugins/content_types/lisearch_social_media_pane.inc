@@ -75,7 +75,18 @@ function theme_lisearch_build_social_media_list(array $variables) {
   $output .= '<input class="search" placeholder="Search" />';
   $output .= '<ul class="lisearch-list">';
   foreach ($list_data as $category_data) {
-    $output .= '<li class="lisearch-category">' . $category_data['category_name'] . '</li>';
+    $output .= '<li class="lisearch-category"><h3>' . $category_data['category_name'] . '</h3></li>';
+    foreach ($category_data as $key => $value) {
+      if ($key !== 'category_name') {
+        if (isset($value['link_url']) && isset($value['link_text'])) {
+          $output .= '<li class="lisearch-link-li">';
+          $output .= '<a class="lisearch-link" href="' . $value['link_url'] . '" target="_blank">';
+          $output .= $value['link_text'];
+          $output .= '</a>';
+          $output .= '</li>';
+        }
+      }
+    }
   }
   $output .= '</ul>';
   $output .= '</div>';
