@@ -9,11 +9,14 @@
 
   Drupal.behaviors.social_media_links_pane_js = {
     attach: function (context, settings) {
-      var options = {
+
+      
+
+      // Listjs usage.
+      /* var options = {
         valueNames: ['lisearch-category', 'lisearch-link-span']
       };
-
-      var socialMediaList = new List('lisearch-social-media-list', options);
+      var socialMediaList = new List('lisearch-social-media-list', options); */
     }
   }
 

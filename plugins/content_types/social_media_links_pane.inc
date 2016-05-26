@@ -67,10 +67,63 @@ function social_media_links_pane_render($subtype, $conf, $args, $context) {
  */
 function social_media_links_pane_build_list(array $list_data) {
   $output = '';
+  //$output .= _social_media_links_pane_build_for_listjs($list_data);
+  $output .= _social_media_links_pane_build_for_jquery($list_data);
+  return $output;
+}
+
+/**
+ * Builds jQuery style markup for rendering the list directory.
+ *
+ * @param array $list_data
+ *   An associative array containing:
+ *   - data needed to build the various sections of the list.
+ *
+ * @return string
+ *   The markup for the list.
+ */
+function _social_media_links_pane_build_for_jquery(array $list_data) {
+  $output = '';
+  $output .= '<div class="lisearch-outer-wrapper">';
+  $output .= '<input class="lisearch-search-box" placeholder="Search" />';
+
+  foreach ($list_data as $category_data) {
+    $output .= '<div class="lisearch-dept-wrapper">';
+    $output .= '<h3 class="lisearch-dept-header">' . $category_data['category_name'] . '</h3>';
+    $output .= '<ul class="lisearch-list-ul">';
+    foreach ($category_data as $key => $value) {
+      if ($key !== 'category_name') {
+        if (isset($value['link_url']) && isset($value['link_text'])) {
+          $output .= '<li class="lisearch-list-li">';
+          $output .= '<a class="lisearch-link-a" href="' . $value['link_url'] . '" target="_blank"><span class="lisearch-link-text">';
+          $output .= $value['link_text'];
+          $output .= '</span></a>';
+          $output .= '</li>';
+        }
+      }
+    }
+    $output .= '</ul></div>';
+  }
+  $output .= '</div>';
+  return $output;
+}
+
+/**
+ * Builds Listjs style markup for rendering the list directory.
+ *
+ * @param array $list_data
+ *   An associative array containing:
+ *   - data needed to build the various sections of the list.
+ *
+ * @return string
+ *   The markup for the list.
+ */
+function _social_media_links_pane_build_for_listjs(array $list_data) {
+  $output = '';
   $output .= '<div id="lisearch-social-media-list" class="social-media-links">';
   $output .= '<input class="search" placeholder="Search" />';
 
-  // The "list" class is required on the ul element.
+  // The "list" class is required on the ul element in Listjs.
   $output .= '<ul class="list">';
   foreach ($list_data as $category_data) {
     $output .= '<li class="lisearch-cat-li"><h3 class="lisearch-category">' . $category_data['category_name'] . '</h3></li>';
