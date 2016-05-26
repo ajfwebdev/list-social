@@ -85,7 +85,10 @@ function social_media_links_pane_build_list(array $list_data) {
 function _social_media_links_pane_build_for_jquery(array $list_data) {
   $output = '';
   $output .= '<div class="lisearch-outer-wrapper">';
-  $output .= '<input class="lisearch-search-box" placeholder="Search" />';
+  $output .= '<form>';
+  $output .= '<input class="lisearch-search-box lisearch-dept-search-box" placeholder="Search Departments" />';
+  $output .= '<input class="lisearch-search-box lisearch-link-search-box" placeholder="Search Links" />';
+  $output .= '</form>';
 
   foreach ($list_data as $category_data) {
     $output .= '<div class="lisearch-dept-wrapper">';
@@ -95,9 +98,9 @@ function _social_media_links_pane_build_for_jquery(array $list_data) {
       if ($key !== 'category_name') {
         if (isset($value['link_url']) && isset($value['link_text'])) {
           $output .= '<li class="lisearch-list-li">';
-          $output .= '<a class="lisearch-link-a" href="' . $value['link_url'] . '" target="_blank"><span class="lisearch-link-text">';
+          $output .= '<a class="lisearch-link-a" href="' . $value['link_url'] . '" target="_blank">';
           $output .= $value['link_text'];
-          $output .= '</span></a>';
+          $output .= '</a>';
           $output .= '</li>';
         }
       }
